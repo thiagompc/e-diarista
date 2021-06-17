@@ -2,7 +2,12 @@ import SafeEnvironment from "ui/components/feedback/SafeEnvironment/SafeEnvironm
 import PageTitle from "ui/components/data-display/PageTitle/PageTitle";
 import UserInformation from "ui/components/data-display/UserInformation/UserInformation";
 import TextFieldMask from "ui/components/inputs/TextFieldMask/TextFieldMask";
-import { Button, Typography, Container } from "@material-ui/core";
+import {
+  Button,
+  Typography,
+  Container,
+  CircularProgress,
+} from "@material-ui/core";
 import {
   FormElementsContainer,
   ProfissionaisPaper,
@@ -42,55 +47,82 @@ export default function Home() {
             onChange={(event) => setCep(event.target.value)}
           />
           {cepValido}
-          <Typography color={"error"}>CEP inválido</Typography>
+          {erro && <Typography color={"error"}>{erro}</Typography>}
           <Button
             variant={"contained"}
             color={"secondary"}
             sx={{ width: "220px" }}
+            disabled={!cepValido || carregando}
+            onClick={() => buscarProfissionais(cep)}
           >
-            Buscar
+            {carregando ? <CircularProgress size={20} /> : "Buscar"}
           </Button>
         </FormElementsContainer>
-        <ProfissionaisPaper>
-          <ProfissionaisContainer>
-            <UserInformation
-              name={"Thiago Mesquita"}
-              picture={"https://github.com/thiagompc.png"}
-              rating={3.5}
-              description={"Brasília"}
-            />
-            <UserInformation
-              name={"Beatriz Liarte"}
-              picture={"B"}
-              rating={5}
-              description={"Brasília"}
-            />
-            <UserInformation
-              name={"Thiago Mesquita"}
-              picture={"https://github.com/thiagompc.png"}
-              rating={3.5}
-              description={"Brasília"}
-            />
-            <UserInformation
-              name={"Beatriz Liarte"}
-              picture={"B"}
-              rating={5}
-              description={"Brasília"}
-            />
-            <UserInformation
-              name={"Thiago Mesquita"}
-              picture={"https://github.com/thiagompc.png"}
-              rating={3.5}
-              description={"Brasília"}
-            />
-            <UserInformation
-              name={"Beatriz Liarte"}
-              picture={"B"}
-              rating={5}
-              description={"Brasília"}
-            />
-          </ProfissionaisContainer>
-        </ProfissionaisPaper>
+        {buscaFeita &&
+          (true ? (
+            <ProfissionaisPaper>
+              <ProfissionaisContainer>
+                <UserInformation
+                  name={"Thiago Mesquita"}
+                  picture={"https://github.com/thiagompc.png"}
+                  rating={3.5}
+                  description={"Brasília"}
+                />
+                <UserInformation
+                  name={"Beatriz Liarte"}
+                  picture={"B"}
+                  rating={5}
+                  description={"Brasília"}
+                />
+                <UserInformation
+                  name={"Thiago Mesquita"}
+                  picture={"https://github.com/thiagompc.png"}
+                  rating={3.5}
+                  description={"Brasília"}
+                />
+                <UserInformation
+                  name={"Beatriz Liarte"}
+                  picture={"B"}
+                  rating={5}
+                  description={"Brasília"}
+                />
+                <UserInformation
+                  name={"Thiago Mesquita"}
+                  picture={"https://github.com/thiagompc.png"}
+                  rating={3.5}
+                  description={"Brasília"}
+                />
+                <UserInformation
+                  name={"Beatriz Liarte"}
+                  picture={"B"}
+                  rating={5}
+                  description={"Brasília"}
+                />
+              </ProfissionaisContainer>
+              <Container sx={{ textAlign: "center" }}>
+                {diaristasRestantes > 0 && (
+                  <Typography sx={{ mt: 5 }}>
+                    ... e mais {diaristasRestantes}{" "}
+                    {diaristasRestantes > 1
+                      ? "profissionais atendem"
+                      : "profissional atende"}{" "}
+                    ao seu endereço.
+                  </Typography>
+                )}
+                <Button
+                  variant={"contained"}
+                  color={"secondary"}
+                  sx={{ mt: 5 }}
+                >
+                  Contratar um profissional
+                </Button>
+              </Container>
+            </ProfissionaisPaper>
+          ) : (
+            <Typography align={"center"} color={"textPrimary"}>
+              Ainda não temos nenhuma diarista disponível na sua região.
+            </Typography>
+          ))}
       </Container>
     </div>
   );
