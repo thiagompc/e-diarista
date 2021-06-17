@@ -59,45 +59,20 @@ export default function Home() {
           </Button>
         </FormElementsContainer>
         {buscaFeita &&
-          (true ? (
+          (diaristas.length > 0 ? (
             <ProfissionaisPaper>
               <ProfissionaisContainer>
-                <UserInformation
-                  name={"Thiago Mesquita"}
-                  picture={"https://github.com/thiagompc.png"}
-                  rating={3.5}
-                  description={"Brasília"}
-                />
-                <UserInformation
-                  name={"Beatriz Liarte"}
-                  picture={"B"}
-                  rating={5}
-                  description={"Brasília"}
-                />
-                <UserInformation
-                  name={"Thiago Mesquita"}
-                  picture={"https://github.com/thiagompc.png"}
-                  rating={3.5}
-                  description={"Brasília"}
-                />
-                <UserInformation
-                  name={"Beatriz Liarte"}
-                  picture={"B"}
-                  rating={5}
-                  description={"Brasília"}
-                />
-                <UserInformation
-                  name={"Thiago Mesquita"}
-                  picture={"https://github.com/thiagompc.png"}
-                  rating={3.5}
-                  description={"Brasília"}
-                />
-                <UserInformation
-                  name={"Beatriz Liarte"}
-                  picture={"B"}
-                  rating={5}
-                  description={"Brasília"}
-                />
+                {diaristas.map((item, index) => {
+                  return (
+                    <UserInformation
+                      key={index}
+                      name={item.nome_completo}
+                      picture={item.foto_usuario}
+                      rating={item.reputacao}
+                      description={item.cidade}
+                    />
+                  );
+                })}
               </ProfissionaisContainer>
               <Container sx={{ textAlign: "center" }}>
                 {diaristasRestantes > 0 && (
